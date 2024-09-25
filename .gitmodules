@@ -1,0 +1,15 @@
+[submodule "submodules/simple-knn"]
+    path = submodules/simple-knn
+    url = https://github.com/viruthshaan/simple-knn.git
+[submodule "submodules/diff-gaussian-rasterization"]
+    path = submodules/diff-gaussian-rasterization
+    url = https://github.com/viruthshaan/diff-gaussian-rasterization.git
+[submodule "SIBR_viewers"]
+    path = SIBR_viewers
+    url = https://github.com/viruthshaan/SIBR_viewers.git
+[submodule "submodules/diff-half-cosine-rasterization"]
+    path = submodules/diff-half-cosine-rasterization
+    url = https://github.com/viruthshaan/diff-half-cosine-rasterization.git
+[submodule "submodules/diff-raised-cosine-rasterization"]
+    path = submodules/diff-raised-cosine-rasterization
+    url = https://github.com/viruthshaan/diff-raised-cosine-rasterization.git
