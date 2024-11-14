@@ -1,4 +1,5 @@
 # DARB-Splatting: Generalizing Splatting with Decaying Anisotropic Radial Basis Functions
+<a href="https://github.com/viruthshaan/darb-splatting/"><img style="width:100%;" src="images\teaser.png"> </a>
 Vishagar Arunan*, Saeedha Nazar*, Hashiru Pramuditha*, Vinasirajan Viruthshaan*, Ranga Rodrigo*, Sameera Ramasinghe, Simon Lucey (* indicates equal contribution)<br>
 <!-- | [Webpage](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/) | [Full Paper](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/3d_gaussian_splatting_high.pdf) | [Video](https://youtu.be/T_kXY43VZnk) | [Other GRAPHDECO Publications](http://www-sop.inria.fr/reves/publis/gdindex.php) | [FUNGRAPH project page](https://fungraph.inria.fr) |<br>
 | [T&T+DB COLMAP (650MB)](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/datasets/input/tandt_db.zip) | [Pre-trained Models (14 GB)](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/datasets/pretrained/models.zip) | [Viewers for Windows (60MB)](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/binaries/viewers.zip) | [Evaluation Images (7 GB)](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/evaluation/images.zip) |<br>
@@ -10,7 +11,7 @@ Vishagar Arunan*, Saeedha Nazar*, Hashiru Pramuditha*, Vinasirajan Viruthshaan*,
 <a href="https://univ-cotedazur.eu/"><img height="100" src="assets/logo_uca.png"> </a>
 <a href="https://www.mpi-inf.mpg.de"><img height="100" src="assets/logo_mpi.png"> </a> 
 <a href="https://team.inria.fr/graphdeco/"> <img style="width:100%;" src="assets/logo_graphdeco.png"></a> --> 
-<a href="https://github.com/viruthshaan/darb-splatting/"><img height="100" src="images\teaser.png"> </a>
+
 
 ## Overview
  We provide CUDA rasterizer code for each DARB function, along with the code needed to reproduce the results presented in our paper. The code is largely based on [3D Gaussian Splatting for Real-Time Radiance Field Rendering](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/). The `.ply` file outputs from DARB Splatting are of the same type as those produced by Gaussian Splatting. To visualize the results, different submodules are required.
