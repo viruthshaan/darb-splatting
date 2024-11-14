@@ -1,4 +1,4 @@
-name: gaussian_splatting
+name: darb_splatting
 channels:
   - pytorch
   - conda-forge
