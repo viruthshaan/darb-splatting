@@ -105,13 +105,12 @@ pip install submodules\diff-half-cosine-square-rasterization
 If you find our work useful in your research, please consider citing:
 
 ```bibtex
-@InProceedings{Hamdi_2024_CVPR,
-    author    = {Hamdi, Abdullah and Melas-Kyriazi, Luke and Mai, Jinjie and Qian, Guocheng and Liu, Ruoshi and Vondrick, Carl and Ghanem, Bernard and Vedaldi, Andrea},
-    title     = {GES : Generalized Exponential Splatting for Efficient Radiance Field Rendering},
-    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-    month     = {June},
-    year      = {2024},
-    pages     = {19812-19822}
+
+@article{arunan2025darb,
+  title={DARB-Splatting: Generalizing Splatting with Decaying Anisotropic Radial Basis Functions},
+  author={Arunan, Vishagar and Nazar, Saeedha and Pramuditha, Hashiru and Viruthshaan, Vinasirajan and Ramasinghe, Sameera and Lucey, Simon and Rodrigo, Ranga},
+  journal={arXiv preprint arXiv:2501.12369},
+  year={2025}
 }
 
 =======
