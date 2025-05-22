@@ -108,7 +108,7 @@ If you find our work useful in your research, please consider citing:
 
 @article{arunan2025darb,
   title={DARB-Splatting: Generalizing Splatting with Decaying Anisotropic Radial Basis Functions},
-  author={Arunan, Vishagar and Nazar, Saeedha and Pramuditha, Hashiru and Viruthshaan, Vinasirajan and Ramasinghe, Sameera and Lucey, Simon and Rodrigo, Ranga},
+  author={Vishagar Arunan and Saeedha Nazar and Hashiru Pramuditha and Vinasirajan Viruthshaan and Sameera Ramasinghe and Simon Lucey and Ranga Rodrigo},
   journal={arXiv preprint arXiv:2501.12369},
-  year={2025}
+  year={2025},
 }
