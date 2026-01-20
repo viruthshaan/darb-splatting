@@ -1,7 +1,8 @@
 # DARB-Splatting: Generalizing Splatting with Decaying Anisotropic Radial Basis Functions
 
 Hashiru Pramuditha*, Vinasirajan Viruthshaan*, Vishagar Arunan*, Saeedha Nazar*, Sameera Ramasinghe, Simon Lucey,  Ranga Rodrigo*  (* indicates equal contribution)<br>
-**This paper has been accepted to WACV 2026.**
+
+**🎉 This paper has been accepted to WACV 2026! 🎉**
 
 <a href="https://github.com/viruthshaan/darb-splatting/"><img style="width:100%;" src="images\teaser.png"> </a>
 <!-- | [Webpage](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/) | [Full Paper](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/3d_gaussian_splatting_high.pdf) | [Video](https://youtu.be/T_kXY43VZnk) | [Other GRAPHDECO Publications](http://www-sop.inria.fr/reves/publis/gdindex.php) | [FUNGRAPH project page](https://fungraph.inria.fr) |<br>
