@@ -195,7 +195,8 @@ __global__ void computeCov2DCUDA(int P,
 	glm::mat3 T = W * J;
 
 	glm::mat3 cov2D = glm::transpose(T) * glm::transpose(Vrk) * T;
-
+	float correctionFactor = 1.36f;
+	cov2D *= correctionFactor;
 	// Use helper variables for 2D covariance entries. More compact.
 	float a = cov2D[0][0] += 0.3f;
 	float b = cov2D[0][1];
@@ -210,9 +211,9 @@ __global__ void computeCov2DCUDA(int P,
 		// Gradients of loss w.r.t. entries of 2D covariance matrix,
 		// given gradients of loss w.r.t. conic matrix (inverse covariance matrix).
 		// e.g., dL / da = dL / d_conic_a * d_conic_a / d_a
-		dL_da = denom2inv * (-c * c * dL_dconic.x + 2 * b * c * dL_dconic.y + (denom - a * c) * dL_dconic.z);
-		dL_dc = denom2inv * (-a * a * dL_dconic.z + 2 * a * b * dL_dconic.y + (denom - a * c) * dL_dconic.x);
-		dL_db = denom2inv * 2 * (b * c * dL_dconic.x - (denom + 2 * b * b) * dL_dconic.y + a * b * dL_dconic.z);
+		dL_da = correctionFactor * denom2inv * (-c * c * dL_dconic.x + 2 * b * c * dL_dconic.y + (denom - a * c) * dL_dconic.z);
+		dL_dc = correctionFactor * denom2inv * (-a * a * dL_dconic.z + 2 * a * b * dL_dconic.y + (denom - a * c) * dL_dconic.x);
+		dL_db = correctionFactor * denom2inv * 2 * (b * c * dL_dconic.x - (denom + 2 * b * b) * dL_dconic.y + a * b * dL_dconic.z);
 
 		// Gradients of loss L w.r.t. each 3D covariance matrix (Vrk) entry, 
 		// given gradients w.r.t. 2D covariance matrix (diagonal).
@@ -503,11 +504,10 @@ renderCUDA(
 			
 			// const float ellipseFactor = 2.0f * M_PI * ellipse;
 			float ellipse = con_o.x * d.x * d.x + con_o.z * d.y * d.y + 2.f * con_o.y * d.x * d.y;
-            if (ellipse < -3.f)
+            if (ellipse < 0 || ellipse > 9.f)
 				continue;
-			if (ellipse > 3.f)
-				continue;
-		    float ellipseFactor = 2.f *M_PI *ellipse / 12.f;
+			float ellipseFactor = 0.174f *ellipse;
+
 			// if (ellipseFactor > 0.0f)
 			// 	continue;
 
@@ -556,14 +556,11 @@ renderCUDA(
 
 			// Helpful reusable temporary variables
 			const float dL_dCosine = con_o.w * dL_dalpha;
-		    const float sin_ellipseFactor = sin(ellipseFactor);
-			const float sindL_dCosine = sin_ellipseFactor * dL_dCosine;
-
-			// const float dCosine_ddelx = -4.f *M_PI * ( con_o.x * d.x + con_o.y * d.y)* sin_ellipseFactor;
-			// const float dCosine_ddely = -4.f *M_PI * ( con_o.z * d.y + con_o.y * d.x)* sin_ellipseFactor;
-            const float dCosine_ddelx = - 2.f* M_PI * ( con_o.x * d.x + con_o.y * d.y)* sin_ellipseFactor /6.f;
-			const float dCosine_ddely = -2.f * M_PI * ( con_o.z * d.y + con_o.y * d.x)* sin_ellipseFactor /6.f;
-
+		    const float sindL_dCosine = -0.349* sin(ellipseFactor) * dL_dCosine;
+			const float halfsindL_dCosine = 0.5f * sindL_dCosine;
+			const float dCosine_ddelx = ( con_o.x * d.x + con_o.y * d.y)* sindL_dCosine ;
+			const float dCosine_ddely = ( con_o.z * d.y + con_o.y * d.x)* sindL_dCosine;
+			
 			// Update gradients w.r.t. 2D mean position of the Gaussian
 			atomicAdd(&dL_dmean2D[global_id].x, dL_dCosine * dCosine_ddelx * ddelx_dx);
 			atomicAdd(&dL_dmean2D[global_id].y, dL_dCosine * dCosine_ddely * ddely_dy);
@@ -572,10 +569,9 @@ renderCUDA(
 			// atomicAdd(&dL_dconic2D[global_id].x, -2.f* M_PI * d.x * d.x * sindL_dCosine);
 			// atomicAdd(&dL_dconic2D[global_id].y, -4.f* M_PI * d.x * d.y * sindL_dCosine);
 			// atomicAdd(&dL_dconic2D[global_id].w,  -2.f* M_PI * d.y * d.y * sindL_dCosine);
-			atomicAdd(&dL_dconic2D[global_id].x, -  M_PI * d.x * d.x * sindL_dCosine / 6.f);
-			atomicAdd(&dL_dconic2D[global_id].y, - 2.f * M_PI * d.x * d.y * sindL_dCosine / 6.f);
-			atomicAdd(&dL_dconic2D[global_id].w, -  M_PI * d.y * d.y * sindL_dCosine / 6.f);
-
+			atomicAdd(&dL_dconic2D[global_id].x, d.x * d.x * halfsindL_dCosine);
+			atomicAdd(&dL_dconic2D[global_id].y, d.x * d.y * halfsindL_dCosine );
+			atomicAdd(&dL_dconic2D[global_id].w, d.y * d.y * halfsindL_dCosine);
 
 			// Update gradients w.r.t. opacity of the Gaussian
 			atomicAdd(&(dL_dopacity[global_id]), Cosine * dL_dalpha);

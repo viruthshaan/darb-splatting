@@ -107,8 +107,8 @@ __device__ float3 computeCov2D(const float3& mean, float focal_x, float focal_y,
 		cov3D[2], cov3D[4], cov3D[5]);
 
 	glm::mat3 cov = glm::transpose(T) * glm::transpose(Vrk) * T;
-	float correctionValue = 1.36f; 
-    cov *= correctionValue ; // Multiply the matrix by the constant
+	float correctionFactor = 1.36f; 
+    cov *= correctionFactor ; // Multiply the matrix by the constant
 
 	// Apply low-pass filter: every Gaussian should be at least
 	// one pixel wide/high. Discard 3rd row and column.
